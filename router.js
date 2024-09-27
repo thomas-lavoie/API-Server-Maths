@@ -13,7 +13,7 @@ export const API_EndPoint = async function (HttpContext) {
                 let controller = new Controller(HttpContext);
                 switch (HttpContext.req.method) {
                     case 'GET':
-                        if (HttpContext.path.id) {
+                        if (HttpContext.path.model === "contacts" || HttpContext.path.model === "bookmarks") {
                             controller.get(HttpContext.path.id);
                         } else {
                             controller.get(HttpContext.path.params);
