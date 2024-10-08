@@ -30,29 +30,24 @@ $(() => {
   ];
 
   $("#startTests").on("click", function () {
-    // Clear the tests div before appending results
     $(".tests").empty();
 
-    const baseUrl = $("#url").val(); // get the base URL from the #url div
+    const baseUrl = $("#url").val();
 
     tests.forEach(([queryParams, expected]) => {
       const testUrl = `${baseUrl}${queryParams}`;
 
-      // Use fetch to make a GET request
       fetch(testUrl)
         .then((response) => response.json())
         .then((data) => {
-          // Extract 'value' or 'error' from the response object
           const actual =
             data.value != undefined ? data.value : data.error || "undefined";
 
-          // Compare actual result with the expected result
           const result =
             actual == expected
-              ? "PASSED"
+              ? "OK"
               : "<span style='color: red;'>FAILED</span>";
 
-          // Append the result to the .tests div
           $(".tests").append(
             `${result} --> ${queryParams} - Expected: ${expected}, Received: ${actual}</br>`
           );
